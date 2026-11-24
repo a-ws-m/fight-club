@@ -15,6 +15,7 @@
 )
 
 #let _buttons = ("1", "2", "3", "4")
+#let _symbol-baseline = (at: horizon, shift: -0.25em)
 
 #let _button-diagram(pressed, numbers: false) = {
   let scale = if numbers { 1 } else { 0.8 }
@@ -47,7 +48,7 @@
   box(
     width: scale * 1em,
     height: scale * 1em,
-    baseline: horizon,
+    baseline: _symbol-baseline,
     grid(
       columns: (diameter, diameter),
       rows: (diameter, diameter),
@@ -64,10 +65,10 @@
 #let _render-part(part, numbers) = {
   let direction = _directions.at(part, default: none)
   if part == "n" {
-    box(baseline: horizon)[·]
+    box(baseline: _symbol-baseline)[·]
   } else if direction != none {
     box(
-      baseline: horizon,
+      baseline: _symbol-baseline,
       rotate(
         direction,
         reflow: true,
@@ -84,7 +85,7 @@
       ),
     )
   } else if part == "*" {
-    box(baseline: horizon)[★]
+    box(baseline: _symbol-baseline)[★]
   } else if part in _buttons {
     _button-diagram((part,), numbers: numbers)
   } else {
@@ -100,7 +101,7 @@
     for (index, part) in parts.enumerate() {
       if index > 0 {
         h(0.08em)
-        box(baseline: horizon)[+]
+        box(baseline: _symbol-baseline)[+]
         h(0.08em)
       }
       _render-part(part, numbers)
