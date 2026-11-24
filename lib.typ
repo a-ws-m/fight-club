@@ -1,17 +1,17 @@
 #let _directions = (
   n: "·",
-  f: "→",
-  b: "←",
-  u: "↑",
-  d: "↓",
-  uf: "↗",
-  ub: "↖",
-  df: "↘",
-  db: "↙",
-  "u/f": "↗",
-  "u/b": "↖",
-  "d/f": "↘",
-  "d/b": "↙",
+  f: 0deg,
+  b: 180deg,
+  u: -90deg,
+  d: 90deg,
+  uf: -45deg,
+  ub: -135deg,
+  df: 45deg,
+  db: 135deg,
+  "u/f": -45deg,
+  "u/b": -135deg,
+  "d/f": 45deg,
+  "d/b": 135deg,
 )
 
 #let _buttons = ("1", "2", "3", "4")
@@ -48,8 +48,26 @@
 
 #let _render-part(part, numbers) = {
   let direction = _directions.at(part, default: none)
-  if direction != none {
-    [#direction]
+  if part == "n" {
+    [·]
+  } else if direction != none {
+    box(
+      baseline: 0.2em,
+      rotate(
+        direction,
+        reflow: true,
+        polygon(
+          fill: black,
+          (0em, 0.17em),
+          (0.4em, 0.17em),
+          (0.4em, 0em),
+          (0.72em, 0.29em),
+          (0.4em, 0.58em),
+          (0.4em, 0.41em),
+          (0em, 0.41em),
+        ),
+      ),
+    )
   } else if part == "*" {
     [★]
   } else if part in _buttons {
