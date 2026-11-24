@@ -26,20 +26,28 @@
 
   let key(label) = {
     let active = label in pressed
-    circle(
+    let face = circle(
       radius: radius,
       fill: if active { black } else { none },
       stroke: 0.6pt + black,
       inset: 0pt,
-      if numbers {
-        box(width: diameter, height: diameter)[
-          #set align(center + horizon)
-          #text(font: "DejaVu Sans Mono", size: 0.3em, fill: if active { white } else { black})[#label]
-        ]
-      } else {
-        none
-      },
     )
+
+    if numbers {
+      stack(
+        dir: ttb,
+        spacing: -diameter,
+        face,
+        grid(
+          columns: (diameter,),
+          rows: (diameter,),
+          align: center + horizon,
+          text(font: "DejaVu Sans Mono", size: 0.3em, fill: if active { white } else { black })[#label],
+        ),
+      )
+    } else {
+      face
+    }
   }
 
   let at(label, x, y, base-x, base-y) = move(
