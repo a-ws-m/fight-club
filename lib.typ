@@ -16,6 +16,18 @@
 
 #let _buttons = ("1", "2", "3", "4")
 #let _symbol-baseline = (at: horizon, shift: -0.25em)
+#let _plus = box(
+  baseline: _symbol-baseline,
+  polygon(
+    fill: black,
+    (0.1em, 0em), (0.18em, 0em),
+    (0.18em, 0.1em), (0.28em, 0.1em),
+    (0.28em, 0.18em), (0.18em, 0.18em),
+    (0.18em, 0.28em), (0.1em, 0.28em),
+    (0.1em, 0.18em), (0em, 0.18em),
+    (0em, 0.1em), (0.1em, 0.1em),
+  ),
+)
 
 #let _button-diagram(pressed, numbers: false) = {
   let scale = if numbers { 1 } else { 0.8 }
@@ -111,9 +123,9 @@
   } else {
     for (index, part) in parts.enumerate() {
       if index > 0 {
-        h(0.08em)
-        box(baseline: _symbol-baseline)[+]
-        h(0.08em)
+        h(0.03em)
+        _plus
+        h(0.03em)
       }
       _render-part(part, numbers)
     }
