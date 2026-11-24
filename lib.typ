@@ -32,7 +32,10 @@
       stroke: 0.6pt + black,
       inset: 0pt,
       if numbers {
-        text(size: 0.3em, fill: if active { white } else { black })[#label]
+        box(width: diameter, height: diameter)[
+          #set align(center + horizon)
+          #text(font: "DejaVu Sans Mono", size: 0.3em, fill: if active { white } else { black})[#label]
+        ]
       } else {
         none
       },
