@@ -17,11 +17,11 @@
 #let _buttons = ("1", "2", "3", "4")
 
 #let _button-diagram(pressed, numbers: false) = {
-  let diameter = if numbers { 0.4em } else { 0.32em }
+  let scale = if numbers { 1 } else { 0.8 }
+  let diameter = scale * 0.4em
   let radius = diameter / 2
-  let gap = 0.02em
+  let gap = scale * 0.02em
   let pitch = diameter + gap
-  let rise = pitch * 0.866
 
   let key(label) = {
     let active = label in pressed
@@ -38,18 +38,25 @@
     )
   }
 
+  let at(label, x, y, base-x, base-y) = move(
+    dx: scale * x * 1em - base-x,
+    dy: scale * y * 1em - base-y,
+    key(label),
+  )
+
   box(
-    width: 2.5 * pitch,
-    baseline: radius,
+    width: scale * 1em,
+    height: scale * 1em,
+    baseline: scale * 0.5em,
     grid(
-      columns: 2,
-      rows: 2,
+      columns: (diameter, diameter),
+      rows: (diameter, diameter),
       column-gutter: gap,
       row-gutter: gap,
-      align: center,
-      key("1"), key("2"),
-      move(dx: pitch / 2, dy: rise - pitch, key("3")),
-      move(dx: pitch / 2, dy: rise - pitch, key("4")),
+      at("1", 0.26, 0.42, radius, radius),
+      at("2", 0.60, 0.22, radius + pitch, radius),
+      at("3", 0.40, 0.78, radius, radius + pitch),
+      at("4", 0.74, 0.58, radius + pitch, radius + pitch),
     ),
   )
 }
