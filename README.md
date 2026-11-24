@@ -18,7 +18,8 @@ Each attack input draws four buttons in the skewed layout shown in the example:
 unpressed buttons are outlined. Set `numbers: true` to label the buttons.
 Directions use `f`, `b`, `u`, `d`, `n`, and diagonal combinations such as `df`
 or `d/f`. Separate sequence steps with commas or spaces, and join simultaneous
-buttons with `+`. Set `display: true` to place the notation on its own line.
+buttons with `+`. Commas are accepted as input separators and render as spacing.
+Set `display: true` to place the notation on its own line.
 
 The package is designed for Tekken notation and is not affiliated with Bandai
 Namco Entertainment.

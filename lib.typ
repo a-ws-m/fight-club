@@ -120,7 +120,7 @@
   let notation = {
     for (index, token) in tokens.enumerate() {
       if token == "," {
-        [, ]
+        h(0.14em)
       } else {
         if index > 0 and tokens.at(index - 1) != "," {
           h(0.14em)
