@@ -17,15 +17,21 @@
 #let _buttons = ("1", "2", "3", "4")
 
 #let _button-diagram(pressed, numbers: false) = {
+  let diameter = if numbers { 0.4em } else { 0.32em }
+  let radius = diameter / 2
+  let gap = 0.02em
+  let pitch = diameter + gap
+  let rise = pitch * 0.866
+
   let key(label) = {
     let active = label in pressed
     circle(
-      radius: if numbers { 0.22em } else { 0.2em },
+      radius: radius,
       fill: if active { black } else { none },
       stroke: 0.6pt + black,
       inset: 0pt,
       if numbers {
-        text(size: 0.35em, fill: if active { white } else { black })[#label]
+        text(size: 0.3em, fill: if active { white } else { black })[#label]
       } else {
         none
       },
@@ -33,15 +39,17 @@
   }
 
   box(
-    baseline: 0.2em,
+    width: 2.5 * pitch,
+    baseline: radius,
     grid(
       columns: 2,
       rows: 2,
-      column-gutter: 0.08em,
-      row-gutter: 0.08em,
+      column-gutter: gap,
+      row-gutter: gap,
       align: center,
       key("1"), key("2"),
-      key("3"), key("4"),
+      move(dx: pitch / 2, dy: rise - pitch, key("3")),
+      move(dx: pitch / 2, dy: rise - pitch, key("4")),
     ),
   )
 }
