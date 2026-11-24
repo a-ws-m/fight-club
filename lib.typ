@@ -20,12 +20,12 @@
   let key(label) = {
     let active = label in pressed
     circle(
-      radius: 0.42em,
+      radius: if numbers { 0.22em } else { 0.2em },
       fill: if active { black } else { none },
-      stroke: 0.7pt + black,
+      stroke: 0.6pt + black,
       inset: 0pt,
       if numbers {
-        text(size: 0.55em, fill: if active { white } else { black })[#label]
+        text(size: 0.35em, fill: if active { white } else { black })[#label]
       } else {
         none
       },
@@ -33,16 +33,15 @@
   }
 
   box(
-    baseline: 0.5em,
+    baseline: 0.2em,
     grid(
-      columns: 3,
-      rows: 3,
+      columns: 2,
+      rows: 2,
       column-gutter: 0.08em,
       row-gutter: 0.08em,
       align: center,
-      [], key("2"), [],
-      key("1"), [], key("4"),
-      [], key("3"), [],
+      key("1"), key("2"),
+      key("3"), key("4"),
     ),
   )
 }
@@ -51,6 +50,8 @@
   let direction = _directions.at(part, default: none)
   if direction != none {
     [#direction]
+  } else if part == "*" {
+    [★]
   } else if part in _buttons {
     _button-diagram((part,), numbers: numbers)
   } else {
