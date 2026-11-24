@@ -69,18 +69,21 @@
   )
 
   box(
-    width: scale * 1em,
+    width: scale * 0.88em,
     height: scale * 1em,
     baseline: _symbol-baseline,
-    grid(
-      columns: (diameter, diameter),
-      rows: (diameter, diameter),
-      column-gutter: gap,
-      row-gutter: gap,
-      at("1", 0.26, 0.42, radius, radius),
-      at("2", 0.60, 0.22, radius + pitch, radius),
-      at("3", 0.40, 0.78, radius, radius + pitch),
-      at("4", 0.74, 0.58, radius + pitch, radius + pitch),
+    move(
+      dx: -scale * 0.06em,
+      grid(
+        columns: (diameter, diameter),
+        rows: (diameter, diameter),
+        column-gutter: gap,
+        row-gutter: gap,
+        at("1", 0.26, 0.42, radius, radius),
+        at("2", 0.60, 0.22, radius + pitch, radius),
+        at("3", 0.40, 0.78, radius, radius + pitch),
+        at("4", 0.74, 0.58, radius + pitch, radius + pitch),
+      ),
     ),
   )
 }
@@ -123,7 +126,10 @@
   } else {
     for (index, part) in parts.enumerate() {
       if index > 0 {
-        h(0.03em)
+        let previous = _directions.at(parts.at(index - 1), default: none)
+        let diagonal = previous in (45deg, -45deg, 135deg, -135deg)
+        // Diagonal rotations keep empty trailing box space; offset it before the plus.
+        h(if diagonal { -0.14em } else { 0.03em })
         _plus
         h(0.03em)
       }
