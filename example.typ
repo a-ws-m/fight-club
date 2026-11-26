@@ -24,7 +24,7 @@ The sequence below runs through several steps within a narrow paragraph.
   A sequence can wrap inline: #tekken("f, n, d, df, 1+2, df+1, [df+2], F, u/f, \"Side Step\", 3+4, b, 1, 2") and continue alongside the surrounding text.
 ]
 
-Timing: #tekken("1:2, f~3, [1:2]")
+Steve string: #tekken("4,1,2~1")
 
 Heihachi Electric Wind God Fist: #tekken("f,n,d,df:2")
 
