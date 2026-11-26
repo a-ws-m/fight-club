@@ -7,7 +7,7 @@
 
 ## Quick start
 
-Before publication, copy `lib.typ` into your project and import the local file. After publication, use the package import:
+Once published on Typst Universe, import the package in your document. The Typst CLI downloads it automatically on first use:
 
 ```typst
 #import "@preview/fight-club:0.1.0": tekken
