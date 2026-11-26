@@ -14,6 +14,21 @@
   "d/b": 135deg,
 )
 
+#let _held-directions = (
+  "F": 0deg,
+  "B": 180deg,
+  "U": -90deg,
+  "D": 90deg,
+  "UF": -45deg,
+  "UB": -135deg,
+  "DF": 45deg,
+  "DB": 135deg,
+  "U/F": -45deg,
+  "U/B": -135deg,
+  "D/F": 45deg,
+  "D/B": 135deg,
+)
+
 #let _buttons = ("1", "2", "3", "4")
 #let _symbol-baseline = (at: horizon, shift: -0.25em)
 #let _plus = box(
@@ -88,28 +103,36 @@
   )
 }
 
+#let _arrow(direction, hollow: false) = {
+  box(
+    baseline: _symbol-baseline,
+    rotate(
+      direction,
+      reflow: true,
+      polygon(
+        fill: if hollow { none } else { black },
+        stroke: if hollow { 1pt + black } else { none },
+        (0em, 0.17em),
+        (0.4em, 0.17em),
+        (0.4em, 0em),
+        (0.72em, 0.29em),
+        (0.4em, 0.58em),
+        (0.4em, 0.41em),
+        (0em, 0.41em),
+      ),
+    ),
+  )
+}
+
 #let _render-part(part, numbers) = {
   let direction = _directions.at(part, default: none)
+  let held-direction = _held-directions.at(part, default: none)
   if part == "n" {
     box(baseline: _symbol-baseline)[·]
+  } else if held-direction != none {
+    _arrow(held-direction, hollow: true)
   } else if direction != none {
-    box(
-      baseline: _symbol-baseline,
-      rotate(
-        direction,
-        reflow: true,
-        polygon(
-          fill: black,
-          (0em, 0.17em),
-          (0.4em, 0.17em),
-          (0.4em, 0em),
-          (0.72em, 0.29em),
-          (0.4em, 0.58em),
-          (0.4em, 0.41em),
-          (0em, 0.41em),
-        ),
-      ),
-    )
+    _arrow(direction)
   } else if part == "*" {
     box(baseline: _symbol-baseline)[★]
   } else if part in _buttons {
