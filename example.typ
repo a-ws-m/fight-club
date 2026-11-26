@@ -31,3 +31,5 @@ Heihachi Electric Wind God Fist: #tekken("f,n,d,df:2")
 Kazuya Hellsweep: #tekken("f,n,d,df+4,1")
 
 Without plus signs: #tekken("df+2, f+1+2", plus: false)
+
+Without separators: #tekken("f, n, d, df+2", separator: false)

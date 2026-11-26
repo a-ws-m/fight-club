@@ -230,7 +230,7 @@
   box(baseline: _symbol-baseline, image(bytes(svg.replace("−", "-")), format: "svg", height: 1em, alt: parts.join("+")))
 }
 
-#let tekken(input, numbers: false, display: false, plus: true) = {
+#let tekken(input, numbers: false, display: false, plus: true, separator: true) = {
   let segments = input.split("\"")
   let source = ""
   for (index, segment) in segments.enumerate() {
@@ -250,12 +250,12 @@
     for (index, token) in tokens.enumerate() {
       if index > 0 {
         let previous = tokens.at(index - 1)
-        h(if previous.ends-with("]") { 0.4em } else { 0.2em }, weak: true)
+        h(if previous.ends-with("]") or (not separator and token.starts-with("[")) { 0.4em } else { 0.2em }, weak: true)
         sym.zws
       }
       let inner = token.trim("[").trim("]")
       let parts = if inner.starts-with("\"") or inner.split("+").all(x => x in _buttons) { (token,) } else { token.split("+").filter(part => part != "") }
-      _svg-step(parts, numbers, prefix: index > 0, plus: plus)
+      _svg-step(parts, numbers, prefix: index > 0 and separator, plus: plus)
     }
   }
   if display { block(width: 100%, above: 0.4em, below: 0.4em, align(center, notation)) } else { notation }
