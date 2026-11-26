@@ -21,3 +21,5 @@ The sequence below runs through several steps within a narrow paragraph.
 #block(width: 7cm)[
   A sequence can wrap inline: #tekken("f, n, d, df, 1+2, df+1, [df+2], F, u/f, \"Side Step\", 3+4, b, 1, 2") and continue alongside the surrounding text.
 ]
+
+Timing: #tekken("1:2, f~3, [1:2]")

@@ -23,6 +23,8 @@ or spaces, and join simultaneous buttons with `+`. Commas and spaces render as
 stemless right arrows. Long sequences can wrap between steps, with the arrow at the start of the next line. Set `display: true` to place the notation on
 its own line.
 
+`:` renders two hollow squares; `~` renders a tilde.
+
 Use quoted text for a state, for example `#tekken("f, \"Side Step\", 1")`.
 
 The package is designed for Tekken notation and is not affiliated with Bandai
