@@ -25,8 +25,6 @@ Before publication, copy `lib.typ` into your project and import the local file. 
 
 See the [full example PDF](example.pdf), including inline wrapping.
 
-Move references: [Heihachi’s Electric Wind God Fist](https://tekkendocs.com/t8/heihachi/f%2Cn%2Cd%2Cdf%3A2), [Kazuya’s Hellsweep](https://junkfoodarcades.com/pages/move-lab/electric-wind-god-fist), [Steve’s string](https://tekkendocs.com/steve/guide), and [Ki Charge](https://www.kicharge.com/).
-
 ## Notation
 
 | Input | Rendered meaning |
