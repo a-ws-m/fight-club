@@ -1,4 +1,4 @@
-#import "@preview/tekken:0.1.0": tekken
+#import "@preview/fight-club:0.1.0": tekken
 #set page(width: 150mm, height: auto, margin: 7mm, fill: white)
 #set text(size: 12pt)
 *Heihachi: Electric Wind God Fist* #h(1em) #tekken("f,n,d,df:2")

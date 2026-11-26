@@ -1,4 +1,4 @@
-# Tekken for Typst
+# fight-club
 
 **Put the fight on the page.** Render Tekken notation as compact symbols in Typst, inline with your writing or as a standalone diagram.
 
@@ -10,7 +10,7 @@
 Before publication, copy `lib.typ` into your project and import the local file. After publication, use the package import:
 
 ```typst
-#import "@preview/tekken:0.1.0": tekken
+#import "@preview/fight-club:0.1.0": tekken
 
 *Heihachi: Electric Wind God Fist* #h(1em) #tekken("f,n,d,df:2")
 
@@ -49,6 +49,10 @@ See the [full example PDF](example.pdf), including inline wrapping.
 | `"Side Step"` | A named state in a rounded rectangle |
 
 Buttons are arranged with `1` left, `2` upper, `3` right and `4` lower. Set `numbers: true` to label them. Set `plus: false` to hide plus signs between simultaneous directions and buttons. Set `separator: false` to hide the triangles between sequence steps. Set `display: true` to center notation on its own line. Long inline sequences can wrap between steps, with the separator at the start of the next line.
+
+## AI disclosure
+
+This package’s implementation and documentation were created with AI assistance.
 
 ## License
 

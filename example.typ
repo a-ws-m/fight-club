@@ -1,4 +1,4 @@
-#import "@preview/tekken:0.1.0": tekken
+#import "@preview/fight-club:0.1.0": tekken
 
 Inline input: #tekken("f,n,d,df,1+2, df+1, 1,2")
 
