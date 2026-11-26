@@ -1,5 +1,4 @@
 #let _directions = (
-  n: "·",
   f: 0deg,
   b: 180deg,
   u: -90deg,
@@ -133,13 +132,11 @@
 #let _render-part(part, numbers) = {
   let direction = _directions.at(part, default: none)
   let held-direction = _held-directions.at(part, default: none)
-  if part == "n" {
-    box(baseline: _symbol-baseline)[·]
-  } else if held-direction != none {
+  if held-direction != none {
     _arrow(held-direction, hollow: true)
   } else if direction != none {
     _arrow(direction)
-  } else if part == "*" {
+  } else if part in ("n", "*") {
     box(
       width: 0.72em,
       height: 0.72em,

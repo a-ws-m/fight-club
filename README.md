@@ -16,8 +16,8 @@ Electric: #tekken("f,n,d,df,2")
 Each attack input draws four buttons in the skewed layout shown in the example:
 `1` left, `2` upper, `3` right, and `4` lower. Pressed buttons are filled;
 unpressed buttons are outlined. Set `numbers: true` to label the buttons.
-Directions use `f`, `b`, `u`, `d`, `n`, and diagonal combinations such as `df`
-or `d/f`. Uppercase directions indicate held inputs and render as hollow arrows;
+Directions use `f`, `b`, `u`, `d`, and diagonal combinations such as `df`
+or `d/f`. `n` and `*` render a star. Uppercase directions indicate held inputs and render as hollow arrows;
 lowercase directions render as filled arrows. Separate sequence steps with commas
 or spaces, and join simultaneous buttons with `+`. Commas are accepted as input
 separators and render as spacing. Set `display: true` to place the notation on
