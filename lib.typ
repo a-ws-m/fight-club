@@ -30,6 +30,7 @@
 
 #let _buttons = ("1", "2", "3", "4")
 #let _symbol-baseline = (at: horizon, shift: -0.25em)
+#let _symbol-gap = 0.1em
 #let _step-separator = box(
   width: 0.3em,
   height: 0.36em,
@@ -138,15 +139,15 @@
     _arrow(direction)
   } else if part in ("n", "*") {
     box(
-      width: 0.72em,
+      width: 0.66em,
       height: 0.72em,
       baseline: _symbol-baseline,
       polygon(
         fill: black,
-        (0.36em, 0.008em), (0.437em, 0.25em), (0.69em, 0.25em),
-        (0.481em, 0.404em), (0.569em, 0.657em), (0.36em, 0.503em),
-        (0.151em, 0.657em), (0.239em, 0.404em), (0.03em, 0.25em),
-        (0.283em, 0.25em),
+        (0.33em, 0.008em), (0.407em, 0.25em), (0.66em, 0.25em),
+        (0.451em, 0.404em), (0.539em, 0.657em), (0.33em, 0.503em),
+        (0.121em, 0.657em), (0.209em, 0.404em), (0em, 0.25em),
+        (0.253em, 0.25em),
       ),
     )
   } else if part in _buttons {
@@ -163,12 +164,9 @@
   } else {
     for (index, part) in parts.enumerate() {
       if index > 0 {
-        let previous = _directions.at(parts.at(index - 1), default: none)
-        let diagonal = previous in (45deg, -45deg, 135deg, -135deg)
-        // Diagonal rotations keep empty trailing box space; offset it before the plus.
-        h(if diagonal { -0.14em } else { 0.03em })
+        h(_symbol-gap)
         _plus
-        h(0.03em)
+        h(_symbol-gap)
       }
       _render-part(part, numbers)
     }
@@ -189,15 +187,19 @@
       let next = tokens.at(index + 1, default: none)
       if token == "," {
         if previous != "[" and next != "]" {
-          h(0.1em)
+          h(_symbol-gap)
           _step-separator
-          h(0.1em)
+          h(_symbol-gap)
         }
       } else {
-        if previous != none and previous not in (",", "[") and token != "]" {
-          h(0.1em)
-          _step-separator
-          h(0.1em)
+        if previous != none and previous != "," {
+          if previous == "[" or token == "]" {
+            h(_symbol-gap)
+          } else {
+            h(_symbol-gap)
+            _step-separator
+            h(_symbol-gap)
+          }
         }
         _render-token(token, numbers)
       }

@@ -19,8 +19,8 @@ unpressed buttons are outlined. Set `numbers: true` to label the buttons.
 Directions use `f`, `b`, `u`, `d`, and diagonal combinations such as `df`
 or `d/f`. `n` and `*` render a star. Uppercase directions indicate held inputs and render as hollow arrows;
 lowercase directions render as filled arrows. Separate sequence steps with commas
-or spaces, and join simultaneous buttons with `+`. Commas are accepted as input
-separators and render as spacing. Set `display: true` to place the notation on
+or spaces, and join simultaneous buttons with `+`. Commas and spaces render as
+stemless right arrows. Set `display: true` to place the notation on
 its own line.
 
 The package is designed for Tekken notation and is not affiliated with Bandai
