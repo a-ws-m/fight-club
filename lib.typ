@@ -158,7 +158,7 @@
 }
 
 // Draw a sequence step in one SVG with tightly computed horizontal bounds.
-#let _svg-step(parts, numbers, prefix: false) = {
+#let _svg-step(parts, numbers, prefix: false, plus: true) = {
   let items = ()
   let add(path, width) = (path: path, width: width)
   if prefix { items.push(add("<path d='M0 -1.8 L3 0 L0 1.8 Z'/>", 3)) }
@@ -177,7 +177,7 @@
   }
   parts = grouped
   for (index, part) in parts.enumerate() {
-    if index > 0 and part not in (":", "~") and parts.at(index - 1) not in (":", "~") { items.push(add("<path transform='translate(0,-1.4)' d='M1 0 H1.8 V1 H2.8 V1.8 H1.8 V2.8 H1 V1.8 H0 V1 H1 Z'/>", 2.8)) }
+    if plus and index > 0 and part not in (":", "~") and parts.at(index - 1) not in (":", "~") { items.push(add("<path transform='translate(0,-1.4)' d='M1 0 H1.8 V1 H2.8 V1.8 H1.8 V2.8 H1 V1.8 H0 V1 H1 Z'/>", 2.8)) }
     let angle = _directions.at(part, default: _held-directions.at(part, default: none))
     if part.starts-with("\"") and part.ends-with("\"") and part.len() >= 2 {
       let label = part.slice(1, part.len() - 1)
@@ -230,7 +230,7 @@
   box(baseline: _symbol-baseline, image(bytes(svg.replace("−", "-")), format: "svg", height: 1em, alt: parts.join("+")))
 }
 
-#let tekken(input, numbers: false, display: false) = {
+#let tekken(input, numbers: false, display: false, plus: true) = {
   let segments = input.split("\"")
   let source = ""
   for (index, segment) in segments.enumerate() {
@@ -255,7 +255,7 @@
       }
       let inner = token.trim("[").trim("]")
       let parts = if inner.starts-with("\"") or inner.split("+").all(x => x in _buttons) { (token,) } else { token.split("+").filter(part => part != "") }
-      _svg-step(parts, numbers, prefix: index > 0)
+      _svg-step(parts, numbers, prefix: index > 0, plus: plus)
     }
   }
   if display { block(width: 100%, above: 0.4em, below: 0.4em, align(center, notation)) } else { notation }
