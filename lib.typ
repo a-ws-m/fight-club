@@ -185,7 +185,7 @@
       let width = calc.max(6, label.len() * 3.2 + 4)
       items.push(add("<rect x='0' y='-4' width='"+str(width)+"' height='8' rx='2' fill='black'/><text x='"+str(width / 2)+"' y='0' text-anchor='middle' dominant-baseline='central' font-family='DejaVu Sans Mono' font-size='5' fill='white' xml:space='preserve'>"+safe+"</text>", width))
     } else if part == ":" {
-      items.push(add("<path d='M0.4 -3.4 H2.2 V-1.6 H0.4 Z M0.4 1.6 H2.2 V3.4 H0.4 Z' fill='none' stroke='black' stroke-width='0.8'/>", 2.6))
+      items.push(add("<path d='M0.4 -2.8 H2.2 V-1 H0.4 Z M0.4 1 H2.2 V2.8 H0.4 Z' fill='none' stroke='black' stroke-width='0.8'/>", 2.6))
     } else if part == "~" {
       items.push(add("<path d='M0.5 0 C1.25 -0.9 2 -0.9 2.75 0 S4.25 0.9 5 0' fill='none' stroke='black' stroke-width='1' stroke-linecap='round'/>", 5.5))
     } else if angle != none {
