@@ -157,58 +157,71 @@
   }
 }
 
-#let _render-token(token, numbers) = {
-  let parts = token.split("+")
-  if parts.len() > 1 and parts.all(part => part in _buttons) {
-    _button-diagram(parts, numbers: numbers)
-  } else {
-    for (index, part) in parts.enumerate() {
-      if index > 0 {
-        h(_symbol-gap)
-        _plus
-        h(_symbol-gap)
+// Draw a sequence step in one SVG with tightly computed horizontal bounds.
+#let _svg-step(parts, numbers, prefix: false) = {
+  let items = ()
+  let add(path, width) = (path: path, width: width)
+  if prefix { items.push(add("<path d='M0 -1.8 L3 0 L0 1.8 Z'/>", 3)) }
+  let opening = parts.first().starts-with("[")
+  let closing = parts.last().ends-with("]")
+  if opening { items.push(add("<path d='M2 -4 H0 V4 H2' fill='none' stroke='black' stroke-width='0.6'/>", 2)) }
+  parts = parts.map(part => part.trim("[").trim("]"))
+  for (index, part) in parts.enumerate() {
+    if index > 0 { items.push(add("<path transform='translate(0,-1.4)' d='M1 0 H1.8 V1 H2.8 V1.8 H1.8 V2.8 H1 V1.8 H0 V1 H1 Z'/>", 2.8)) }
+    let angle = _directions.at(part, default: _held-directions.at(part, default: none))
+    if angle != none {
+      let points = ((0,1.7),(4,1.7),(4,0),(7.2,2.9),(4,5.8),(4,4.1),(0,4.1))
+      let rotated = points.map(p => (p.at(0)*calc.cos(angle)-p.at(1)*calc.sin(angle), p.at(0)*calc.sin(angle)+p.at(1)*calc.cos(angle)))
+      let xs = rotated.map(p => p.at(0))
+      let ys = rotated.map(p => p.at(1))
+      let left = calc.min(..xs)
+      let right = calc.max(..xs)
+      let top = calc.min(..ys)
+      let bottom = calc.max(..ys)
+      let coords = rotated.map(p => str(p.at(0)-left+0.5)+","+str(p.at(1)-(top+bottom)/2)).join(" ")
+      let fill = if _held-directions.at(part, default: none) != none { "none" } else { "black" }
+      items.push(add("<polygon points='"+coords+"' fill='"+fill+"' stroke='black' stroke-width='1' stroke-linejoin='round'/>", right - left + 1))
+    } else if part in ("n", "*") {
+      items.push(add("<polygon points='3.3,-3.25 4.07,-0.83 6.6,-0.83 4.51,0.71 5.39,3.24 3.3,1.7 1.21,3.24 2.09,0.71 0,-0.83 2.53,-0.83'/>", 6.6))
+    } else if part in _buttons or (part.contains("+") and part.split("+").all(x => x in _buttons)) {
+      let pressed = part.split("+")
+      let scale = if numbers { 1.0 } else { 0.8 }
+      let circles = ""
+      for (label, x, y) in (("1",2.6,4.2),("2",6.0,2.2),("3",7.4,5.8),("4",4.0,7.8)) {
+        let active = label in pressed
+        let color = if active { "black" } else { "white" }
+        circles += "<circle cx='"+str(x)+"' cy='"+str(y)+"' r='2' fill='"+color+"' stroke='black' stroke-width='0.6'/>"
+        if numbers { circles += "<text x='"+str(x)+"' y='"+str(y)+"' text-anchor='middle' dominant-baseline='central' font-family='DejaVu Sans Mono' font-size='3' fill='"+(if active { "white" } else { "black" })+"'>"+label+"</text>" }
       }
-      _render-part(part, numbers)
+      items.push(add("<g transform='scale("+str(scale)+") translate(-0.3,-5)'>"+circles+"</g>", 9.4*scale))
+    } else {
+      let safe = part.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&apos;")
+      items.push(add("<text x='0' y='0' dominant-baseline='central' font-size='10'>"+safe+"</text>", calc.max(3, part.len()*6)))
     }
   }
+  if closing { items.push(add("<path d='M0 -4 H2 V4 H0' fill='none' stroke='black' stroke-width='0.6'/>", 2)) }
+  let x = 0.0
+  let shapes = ""
+  for item in items {
+    if x > 0 { x += 1 }
+    shapes += "<g transform='translate("+str(x)+",0)'>"+item.path+"</g>"
+    x += item.width
+  }
+  let svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 -5 "+str(x)+" 10' width='"+str(x)+"' height='10'>"+shapes+"</svg>"
+  box(baseline: _symbol-baseline, image(bytes(svg.replace("−", "-")), format: "svg", height: 1em, alt: parts.join("+")))
 }
 
-// Render Tekken notation inline, or as a standalone block with `display: true`.
 #let tekken(input, numbers: false, display: false) = {
-  let source = input.replace(",", " , ")
-  for mark in ("[", "]", "(", ")", "~", "*", "-") {
-    source = source.replace(mark, " " + mark + " ")
-  }
+  let source = input.replace(",", " ")
   source = source.replace(regex("\\s*\\+\\s*"), "+")
   let tokens = source.split()
   let notation = {
     for (index, token) in tokens.enumerate() {
-      let previous = if index > 0 { tokens.at(index - 1) } else { none }
-      let next = tokens.at(index + 1, default: none)
-      if token == "," {
-        if previous != "[" and next != "]" {
-          h(_symbol-gap)
-          _step-separator
-          h(_symbol-gap)
-        }
-      } else {
-        if previous != none and previous != "," {
-          if previous == "[" or token == "]" {
-            h(_symbol-gap)
-          } else {
-            h(_symbol-gap)
-            _step-separator
-            h(_symbol-gap)
-          }
-        }
-        _render-token(token, numbers)
-      }
+      if index > 0 { text(size: 0.3em)[ ] }
+      let inner = token.trim("[").trim("]")
+      let parts = if inner.split("+").all(x => x in _buttons) { (token,) } else { token.split("+") }
+      _svg-step(parts, numbers, prefix: index > 0)
     }
   }
-
-  if display {
-    block(above: 0.4em, below: 0.4em, notation)
-  } else {
-    notation
-  }
+  if display { block(above: 0.4em, below: 0.4em, notation) } else { notation }
 }
