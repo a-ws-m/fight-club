@@ -258,5 +258,5 @@
       _svg-step(parts, numbers, prefix: index > 0)
     }
   }
-  if display { block(above: 0.4em, below: 0.4em, notation) } else { notation }
+  if display { block(width: 100%, above: 0.4em, below: 0.4em, align(center, notation)) } else { notation }
 }
