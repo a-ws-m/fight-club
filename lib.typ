@@ -31,6 +31,12 @@
 
 #let _buttons = ("1", "2", "3", "4")
 #let _symbol-baseline = (at: horizon, shift: -0.25em)
+#let _step-separator = box(
+  width: 0.3em,
+  height: 0.36em,
+  baseline: _symbol-baseline,
+  polygon(fill: black, (0em, 0em), (0.3em, 0.18em), (0em, 0.36em)),
+)
 #let _plus = box(
   baseline: _symbol-baseline,
   polygon(
@@ -134,7 +140,18 @@
   } else if direction != none {
     _arrow(direction)
   } else if part == "*" {
-    box(baseline: _symbol-baseline)[★]
+    box(
+      width: 0.72em,
+      height: 0.72em,
+      baseline: _symbol-baseline,
+      polygon(
+        fill: black,
+        (0.36em, 0.008em), (0.437em, 0.25em), (0.69em, 0.25em),
+        (0.481em, 0.404em), (0.569em, 0.657em), (0.36em, 0.503em),
+        (0.151em, 0.657em), (0.239em, 0.404em), (0.03em, 0.25em),
+        (0.283em, 0.25em),
+      ),
+    )
   } else if part in _buttons {
     _button-diagram((part,), numbers: numbers)
   } else {
@@ -171,11 +188,19 @@
   let tokens = source.split()
   let notation = {
     for (index, token) in tokens.enumerate() {
+      let previous = if index > 0 { tokens.at(index - 1) } else { none }
+      let next = tokens.at(index + 1, default: none)
       if token == "," {
-        h(0.14em)
+        if previous != "[" and next != "]" {
+          h(0.1em)
+          _step-separator
+          h(0.1em)
+        }
       } else {
-        if index > 0 and tokens.at(index - 1) != "," {
-          h(0.14em)
+        if previous != none and previous not in (",", "[") and token != "]" {
+          h(0.1em)
+          _step-separator
+          h(0.1em)
         }
         _render-token(token, numbers)
       }
