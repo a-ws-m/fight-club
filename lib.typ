@@ -219,7 +219,7 @@
   let tokens = source.split()
   let notation = {
     for (index, token) in tokens.enumerate() {
-      if index > 0 { text(size: 0.3em)[ ] }
+      if index > 0 { h(0.1em, weak: true); sym.zws }
       let inner = token.trim("[").trim("]")
       let parts = if inner.split("+").all(x => x in _buttons) { (token,) } else { token.split("+") }
       _svg-step(parts, numbers, prefix: index > 0)
