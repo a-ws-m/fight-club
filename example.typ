@@ -25,3 +25,7 @@ The sequence below runs through several steps within a narrow paragraph.
 ]
 
 Timing: #tekken("1:2, f~3, [1:2]")
+
+Heihachi Electric Wind God Fist: #tekken("f,n,d,df:2")
+
+Kazuya Hellsweep: #tekken("f,n,d,df+4,1")
