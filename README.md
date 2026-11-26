@@ -5,10 +5,6 @@
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Typst: 0.13.0 or newer](https://img.shields.io/badge/Typst-%E2%89%A5%200.13.0-239dad)
 
-![Examples of Tekken notation rendered as arrows, button diagrams, a state and timing symbols](docs/preview.png)
-
-See the [full example PDF](example.pdf), including inline wrapping.
-
 ## Quick start
 
 Before publication, copy `lib.typ` into your project and import the local file. After publication, use the package import:
@@ -23,6 +19,10 @@ Kazuya Hellsweep: #tekken("f, n, d, df+4, 1")
 #tekken("1+2", numbers: true)
 #tekken("f, \"Side Step\", 1")
 ```
+
+![Rendered examples of Tekken move notation](docs/preview.png)
+
+See the [full example PDF](example.pdf), including inline wrapping.
 
 Move references: [Heihachi’s Electric Wind God Fist](https://tekkendocs.com/t8/heihachi/f%2Cn%2Cd%2Cdf%3A2) and [Kazuya’s Hellsweep](https://junkfoodarcades.com/pages/move-lab/electric-wind-god-fist).
 
