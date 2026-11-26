@@ -7,4 +7,4 @@ license = "MIT"
 description = "Render Tekken notation and four-button inputs as diagrams."
 keywords = ["tekken", "fighting-games", "notation"]
 compiler = "0.13.0"
-exclude = ["example.typ", "example.pdf"]
+exclude = ["example.typ", "example.pdf", "docs/preview.typ"]

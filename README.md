@@ -1,31 +1,45 @@
 # Tekken for Typst
 
-Render Tekken directions and attack inputs as compact diagrams in Typst.
-See the [compiled example](example.pdf) for a preview.
+**Put the fight on the page.** Render Tekken notation as compact symbols in Typst, inline with your writing or as a standalone diagram.
+
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![Typst: 0.13.0 or newer](https://img.shields.io/badge/Typst-%E2%89%A5%200.13.0-239dad)
+
+![Examples of Tekken notation rendered as arrows, button diagrams, a state and timing symbols](docs/preview.png)
+
+See the [full example PDF](example.pdf), including inline wrapping.
+
+## Quick start
+
+Before publication, copy `lib.typ` into your project and import the local file. After publication, use the package import:
 
 ```typst
 #import "@preview/tekken:0.1.0": tekken
 
-Electric: #tekken("f,n,d,df,2")
+Electric: #tekken("f, n, d, df, 2")
 
 #tekken("df+1, 1, 2", display: true)
-
 #tekken("1+2", numbers: true)
+#tekken("f, \"Side Step\", 1")
 ```
 
-Each attack input draws four buttons in the skewed layout shown in the example:
-`1` left, `2` upper, `3` right, and `4` lower. Pressed buttons are filled;
-unpressed buttons are outlined. Set `numbers: true` to label the buttons.
-Directions use `f`, `b`, `u`, `d`, and diagonal combinations such as `df`
-or `d/f`. `n` and `*` render a star. Uppercase directions indicate held inputs and render as hollow arrows;
-lowercase directions render as filled arrows. Separate sequence steps with commas
-or spaces, and join simultaneous buttons with `+`. Commas and spaces render as
-stemless right arrows. Long sequences can wrap between steps, with the arrow at the start of the next line. Set `display: true` to place the notation on
-its own line.
+## Notation
 
-`:` renders two hollow squares; `~` renders a tilde.
+| Input | Rendered meaning |
+| --- | --- |
+| `f`, `b`, `u`, `d` | Direction arrows; diagonals such as `df` and `d/f` are equivalent |
+| `F`, `DF`, `D/F` | Held directions, drawn as hollow arrows |
+| `n` or `*` | Neutral, drawn as a star |
+| `1`–`4` | Four-button diagram with the pressed button filled |
+| `1+2` | Simultaneous buttons, combined in one diagram |
+| `df+1` | Simultaneous direction and button |
+| `,` or space | Sequence separator, drawn as a right-pointing triangle |
+| `[df+2]` | Bracketed input |
+| `1:2`, `f~3` | Timing symbols: two hollow squares and a tilde |
+| `"Side Step"` | A named state in a rounded rectangle |
 
-Use quoted text for a state, for example `#tekken("f, \"Side Step\", 1")`.
+Buttons are arranged with `1` left, `2` upper, `3` right and `4` lower. Set `numbers: true` to label them. Set `display: true` to put notation on its own line. Long inline sequences can wrap between steps, with the separator at the start of the next line.
 
-The package is designed for Tekken notation and is not affiliated with Bandai
-Namco Entertainment.
+## License
+
+[MIT](LICENSE). This package is not affiliated with Bandai Namco Entertainment.
