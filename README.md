@@ -7,7 +7,7 @@
 
 ## Quick start
 
-Once published on Typst Universe, import the package in your document. The Typst CLI downloads it automatically on first use:
+Import the package in your document. The Typst CLI downloads it automatically on first use:
 
 ```typst
 #import "@preview/fight-club:0.1.0": tekken
@@ -30,6 +30,16 @@ Once published on Typst Universe, import the package in your document. The Typst
 ```
 
 ![Rendered examples of Tekken move notation](docs/preview.png)
+
+Alternatively, clone the repository and import its entrypoint directly:
+
+```sh
+git clone https://github.com/a-ws-m/fight-club.git
+```
+
+```typst
+#import "path/to/fight-club/lib.typ": tekken
+```
 
 See the [full example PDF](example.pdf), including inline wrapping.
 
