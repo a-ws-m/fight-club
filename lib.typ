@@ -187,7 +187,7 @@
     } else if part == ":" {
       items.push(add("<path d='M0.4 -3.4 H2.2 V-1.6 H0.4 Z M0.4 1.6 H2.2 V3.4 H0.4 Z' fill='none' stroke='black' stroke-width='0.8'/>", 2.6))
     } else if part == "~" {
-      items.push(add("<path d='M0.4 0.6 C1.3 -1.4 2 -1.4 3.3 0 C4.4 1.2 4.8 1.2 5.1 -0.1' fill='none' stroke='black' stroke-width='1' stroke-linecap='round'/>", 5.5))
+      items.push(add("<path d='M0.5 0 C1.25 -1.6 2 -1.6 2.75 0 S4.25 1.6 5 0' fill='none' stroke='black' stroke-width='1' stroke-linecap='round'/>", 5.5))
     } else if angle != none {
       let points = ((0,1.7),(4,1.7),(4,0),(7.2,2.9),(4,5.8),(4,4.1),(0,4.1))
       let rotated = points.map(p => (p.at(0)*calc.cos(angle)-p.at(1)*calc.sin(angle), p.at(0)*calc.sin(angle)+p.at(1)*calc.cos(angle)))
