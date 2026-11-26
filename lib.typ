@@ -111,7 +111,7 @@
       reflow: true,
       polygon(
         fill: if hollow { none } else { black },
-        stroke: if hollow { 1pt + black } else { none },
+        stroke: 1pt + black,
         (0em, 0.17em),
         (0.4em, 0.17em),
         (0.4em, 0em),
