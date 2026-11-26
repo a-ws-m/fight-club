@@ -12,19 +12,20 @@ Before publication, copy `lib.typ` into your project and import the local file. 
 ```typst
 #import "@preview/tekken:0.1.0": tekken
 
-Heihachi electric: #tekken("f, n, d, df:2")
-Kazuya Hellsweep: #tekken("f, n, d, df+4, 1")
+*Heihachi: Electric Wind God Fist* #h(1em) #tekken("f,n,d,df:2")
 
-#tekken("df+1, 1, 2", display: true)
-#tekken("1+2", numbers: true)
-#tekken("f, \"Side Step\", 1")
+*Kazuya: Hellsweep* #h(1em) #tekken("f,n,d,df+4,1")
+
+*Steve: string* #h(1em) #tekken("4,1,2~1")
+
+*Ki Charge* #h(1em) #tekken("1+2+3+4", numbers: true)
 ```
 
 ![Rendered examples of Tekken move notation](docs/preview.png)
 
 See the [full example PDF](example.pdf), including inline wrapping.
 
-Move references: [Heihachi’s Electric Wind God Fist](https://tekkendocs.com/t8/heihachi/f%2Cn%2Cd%2Cdf%3A2) and [Kazuya’s Hellsweep](https://junkfoodarcades.com/pages/move-lab/electric-wind-god-fist).
+Move references: [Heihachi’s Electric Wind God Fist](https://tekkendocs.com/t8/heihachi/f%2Cn%2Cd%2Cdf%3A2), [Kazuya’s Hellsweep](https://junkfoodarcades.com/pages/move-lab/electric-wind-god-fist), [Steve’s string](https://tekkendocs.com/steve/guide), and [Ki Charge](https://www.kicharge.com/).
 
 ## Notation
 
