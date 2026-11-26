@@ -164,7 +164,7 @@
   if prefix { items.push(add("<path d='M0 -1.8 L3 0 L0 1.8 Z'/>", 3)) }
   let opening = parts.first().starts-with("[")
   let closing = parts.last().ends-with("]")
-  if opening { items.push(add("<path d='M0 -4 H3 Q0 0 3 4 H0 Z'/>", 3)) }
+  if opening { items.push(add("<path d='M0.5 -4 H3.5 Q0.5 0 3.5 4 H0.5 Z' fill='none' stroke='black' stroke-width='1' stroke-linejoin='round'/>", 4)) }
   parts = parts.map(part => part.trim("[").trim("]"))
   for (index, part) in parts.enumerate() {
     if index > 0 { items.push(add("<path transform='translate(0,-1.4)' d='M1 0 H1.8 V1 H2.8 V1.8 H1.8 V2.8 H1 V1.8 H0 V1 H1 Z'/>", 2.8)) }
@@ -199,7 +199,7 @@
       items.push(add("<text x='0' y='0' dominant-baseline='central' font-size='10'>"+safe+"</text>", calc.max(3, part.len()*6)))
     }
   }
-  if closing { items.push(add("<path d='M0 -4 H3 V4 H0 Q3 0 0 -4 Z'/>", 3)) }
+  if closing { items.push(add("<path d='M0.5 -4 H3.5 V4 H0.5 Q3.5 0 0.5 -4 Z' fill='none' stroke='black' stroke-width='1' stroke-linejoin='round'/>", 4)) }
   let x = 0.0
   let shapes = ""
   for item in items {
