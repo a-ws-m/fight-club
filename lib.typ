@@ -214,6 +214,8 @@
 #let tekken(input, numbers: false, display: false) = {
   let source = input.replace(",", " ")
   source = source.replace(regex("\\s*\\+\\s*"), "+")
+  source = source.replace(regex("\\[\\s+"), "[")
+  source = source.replace(regex("\\s+\\]"), "]")
   let tokens = source.split()
   let notation = {
     for (index, token) in tokens.enumerate() {
