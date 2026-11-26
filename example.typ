@@ -2,6 +2,8 @@
 
 Inline input: #tekken("f,n,d,df,1+2, df+1, 1,2")
 
+Equivalent diagonals: #tekken("df, d/f, DF, D/F")
+
 Held vs. tapped: #tekken("F, f, DF, df")
 
 #tekken("1+2", display: true)
