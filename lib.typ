@@ -203,7 +203,7 @@
   let x = 0.0
   let shapes = ""
   for item in items {
-    if x > 0 { x += if prefix and x == 3 { 2 } else { 1 } }
+    if x > 0 { x += if prefix and x == 3 { if opening { 4 } else { 2 } } else { 1 } }
     shapes += "<g transform='translate("+str(x)+",0)'>"+item.path+"</g>"
     x += item.width
   }
@@ -219,7 +219,11 @@
   let tokens = source.split()
   let notation = {
     for (index, token) in tokens.enumerate() {
-      if index > 0 { h(0.2em, weak: true); sym.zws }
+      if index > 0 {
+        let previous = tokens.at(index - 1)
+        h(if previous.ends-with("]") { 0.4em } else { 0.2em }, weak: true)
+        sym.zws
+      }
       let inner = token.trim("[").trim("]")
       let parts = if inner.split("+").all(x => x in _buttons) { (token,) } else { token.split("+") }
       _svg-step(parts, numbers, prefix: index > 0)
