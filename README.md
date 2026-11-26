@@ -16,6 +16,8 @@ Before publication, copy `lib.typ` into your project and import the local file. 
 
 *Kazuya: Hellsweep* #h(1em) #tekken("f,n,d,df+4,1")
 
+*Kazuya: Hellsweep without plus signs* #h(1em) #tekken("f,n,d,df+4,1", plus: false)
+
 *Steve: string* #h(1em) #tekken("4,1,2~1")
 
 *Ki Charge* #h(1em) #tekken("1+2+3+4", numbers: true)
