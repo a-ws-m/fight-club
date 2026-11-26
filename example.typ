@@ -11,3 +11,5 @@ Held vs. tapped: #tekken("F, f, DF, df")
 #tekken("1 + 2", numbers: true)
 
 #tekken("u/f + 3, [df+2] *", numbers: true)
+
+State: #tekken("f, \"Side Step\", 1+2")

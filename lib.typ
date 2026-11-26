@@ -169,7 +169,12 @@
   for (index, part) in parts.enumerate() {
     if index > 0 { items.push(add("<path transform='translate(0,-1.4)' d='M1 0 H1.8 V1 H2.8 V1.8 H1.8 V2.8 H1 V1.8 H0 V1 H1 Z'/>", 2.8)) }
     let angle = _directions.at(part, default: _held-directions.at(part, default: none))
-    if angle != none {
+    if part.starts-with("\"") and part.ends-with("\"") and part.len() >= 2 {
+      let label = part.slice(1, part.len() - 1)
+      let safe = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&apos;")
+      let width = calc.max(6, label.len() * 3.2 + 4)
+      items.push(add("<rect x='0' y='-4' width='"+str(width)+"' height='8' rx='2' fill='black'/><text x='"+str(width / 2)+"' y='0' text-anchor='middle' dominant-baseline='central' font-family='DejaVu Sans Mono' font-size='5' fill='white' xml:space='preserve'>"+safe+"</text>", width))
+    } else if angle != none {
       let points = ((0,1.7),(4,1.7),(4,0),(7.2,2.9),(4,5.8),(4,4.1),(0,4.1))
       let rotated = points.map(p => (p.at(0)*calc.cos(angle)-p.at(1)*calc.sin(angle), p.at(0)*calc.sin(angle)+p.at(1)*calc.cos(angle)))
       let xs = rotated.map(p => p.at(0))
@@ -212,11 +217,18 @@
 }
 
 #let tekken(input, numbers: false, display: false) = {
-  let source = input.replace(",", " ")
-  source = source.replace(regex("\\s*\\+\\s*"), "+")
-  source = source.replace(regex("\\[\\s+"), "[")
-  source = source.replace(regex("\\s+\\]"), "]")
-  let tokens = source.split()
+  let segments = input.split("\"")
+  let source = ""
+  for (index, segment) in segments.enumerate() {
+    if index > 0 { source += "\"" }
+    if calc.rem(index, 2) == 0 {
+      let plain = segment.replace(",", " ").replace(regex("\\s*\\+\\s*"), "+")
+      source += plain.replace(regex("\\[\\s+"), "[").replace(regex("\\s+\\]"), "]")
+    } else {
+      source += segment
+    }
+  }
+  let tokens = source.matches(regex("(?:\"[^\"]*\"|[^\\s,\"])+")).map(m => m.text)
   let notation = {
     for (index, token) in tokens.enumerate() {
       if index > 0 {
@@ -225,7 +237,7 @@
         sym.zws
       }
       let inner = token.trim("[").trim("]")
-      let parts = if inner.split("+").all(x => x in _buttons) { (token,) } else { token.split("+") }
+      let parts = if inner.starts-with("\"") or inner.split("+").all(x => x in _buttons) { (token,) } else { token.split("+") }
       _svg-step(parts, numbers, prefix: index > 0)
     }
   }
