@@ -19,6 +19,10 @@ Before publication, copy `lib.typ` into your project and import the local file. 
 *Steve: string* #h(1em) #tekken("4,1,2~1")
 
 *Ki Charge* #h(1em) #tekken("1+2+3+4", numbers: true)
+
+#block(width: 7cm)[
+  Law combo: #tekken("df+2, 4, u+3, df+1, 2, f, f+4, 1+2, df+1, 2, f, f+4") continues inline.
+]
 ```
 
 ![Rendered examples of Tekken move notation](docs/preview.png)
